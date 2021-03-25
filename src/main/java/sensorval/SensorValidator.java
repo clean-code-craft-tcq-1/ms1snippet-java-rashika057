@@ -2,27 +2,24 @@ package sensorval;
 
 import java.util.List;
 
+import lombok.NonNull;
+
 public class SensorValidator 
 {
-    public static boolean _give_me_a_good_name(double value, double nextValue, double maxDelta) {
-        if(nextValue - value > maxDelta) {
-            return false;
-        }
-        return true;
+    public static boolean conditionDifferenceCrossedMaxDelta(double value, double nextValue, double maxDelta) {
+        return ((nextValue - value) <= maxDelta) ;
     }
-    public static boolean validateSOCreadings(List<Double> values) {
+    public static boolean validateSOCreadings(@NonNull List<Double> values) {
+    	return validateReadings(values,0.5);
+    }
+    public static boolean validateCurrentreadings(@NonNull List<Double> values) {
+    	return validateReadings(values,0.1);
+    }
+    
+    public static boolean validateReadings(List<Double> values,double maxDelta) {
         int lastButOneIndex = values.size() - 1;
         for(int i = 0; i < lastButOneIndex; i++) {
-            if(!_give_me_a_good_name(values.get(i), values.get(i + 1), 0.05)) {
-            return false;
-            }
-        }
-        return true;
-    }
-    public static boolean validateCurrentreadings(List<Double> values) {
-        int lastButOneIndex = values.size() - 1;
-        for(int i = 0; i < lastButOneIndex; i++) {
-            if(!_give_me_a_good_name(values.get(i), values.get(i + 1), 0.1)) {
+            if(conditionDifferenceCrossedMaxDelta(values.get(i), values.get(i + 1), maxDelta)) {
             return false;
             }
         }
