@@ -2,18 +2,15 @@ package sensorval;
 
 import static org.junit.Assert.*;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.List;
-
-import javax.naming.NameNotFoundException;
 
 import org.junit.Test;
 
 public class SensorValidatorTest 
 {
     @Test
-    public void reportsErrorWhenSOCjumps() throws NameNotFoundException
+    public void reportsErrorWhenSOCjumps()
     {
         Double[] readings = {0.0, 0.01, 0.5, 0.51};
         List<Double> socs = Arrays.asList(readings);
@@ -21,7 +18,7 @@ public class SensorValidatorTest
         
     }
     @Test
-    public void reportsErrorWhenCurrentjumps() throws NameNotFoundException
+    public void reportsErrorWhenCurrentjumps()
     {
         Double[] readings = {0.03, 0.03, 0.03, 0.33};
         List<Double> currents = Arrays.asList(readings);
@@ -29,7 +26,7 @@ public class SensorValidatorTest
     }
     
    @Test(expected = NullPointerException.class)
-    public void reportsExceptionWhenCurrentReadingsNull() throws NameNotFoundException
+    public void reportsExceptionWhenCurrentReadingsNull()
     {
 	   SensorValidator.validateCurrentReadings(null);
 	   
