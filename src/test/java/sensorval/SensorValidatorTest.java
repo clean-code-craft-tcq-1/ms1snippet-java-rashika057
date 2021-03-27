@@ -2,31 +2,36 @@ package sensorval;
 
 import static org.junit.Assert.*;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.List;
+
+import javax.naming.NameNotFoundException;
 
 import org.junit.Test;
 
 public class SensorValidatorTest 
 {
     @Test
-    public void reportsErrorWhenSOCjumps()
+    public void reportsErrorWhenSOCjumps() throws NameNotFoundException
     {
         Double[] readings = {0.0, 0.01, 0.5, 0.51};
         List<Double> socs = Arrays.asList(readings);
-        assertTrue(SensorValidator.validateSOCreadings(socs));
+        assertTrue(SensorValidator.validateSocReadings(socs));
+        
     }
     @Test
-    public void reportsErrorWhenCurrentjumps()
+    public void reportsErrorWhenCurrentjumps() throws NameNotFoundException
     {
         Double[] readings = {0.03, 0.03, 0.03, 0.33};
         List<Double> currents = Arrays.asList(readings);
-        assertFalse(SensorValidator.validateCurrentreadings(currents));
+			assertFalse(SensorValidator.validateCurrentReadings(currents));
     }
     
    @Test(expected = NullPointerException.class)
-    public void reportsExceptionWhenCurrentReadingsNull()
+    public void reportsExceptionWhenCurrentReadingsNull() throws NameNotFoundException
     {
-        assertFalse(SensorValidator.validateCurrentreadings(null));
+	   SensorValidator.validateCurrentReadings(null);
+	   
     }
 }
