@@ -25,10 +25,19 @@ public class SensorValidatorTest
 			assertFalse(SensorValidator.validateCurrentReadings(currents));
     }
     
-   @Test(expected = NullPointerException.class)
+   @Test(expected = IllegalArgumentException.class)
     public void reportsExceptionWhenCurrentReadingsNull()
     {
 	   SensorValidator.validateCurrentReadings(null);
 	   
     }
+   
+   @Test(expected = IllegalArgumentException.class)
+   public void reportsExceptionWhenCurrentReadingsContainNull()
+   {
+	   Double[] readings = {0.03, 0.03,null, 0.03, 0.33};
+       List<Double> currents = Arrays.asList(readings);
+	   SensorValidator.validateCurrentReadings(currents);
+	   
+   }
 }
